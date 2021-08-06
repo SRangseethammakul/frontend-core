@@ -27,7 +27,13 @@ const NavBar = () => {
               </NavDropdown>
             </Nav>
             <Nav>
-              <Nav.Link href="#deets">Login</Nav.Link>
+              <NavLink
+                to="/login"
+                className="nav-link"
+                activeClassName="active"
+              >
+                Login
+              </NavLink>
               <NavLink
                 to="/register"
                 className="nav-link"

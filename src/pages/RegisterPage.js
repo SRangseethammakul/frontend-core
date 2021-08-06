@@ -3,12 +3,13 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
-import { BsPersonPlus } from "react-icons/bs";
 import { useHistory } from "react-router-dom";
 import { Container, Col, Form, Button } from "react-bootstrap";
 const schema = yup.object().shape({
-  name: yup.string().required("name not empty"),
   email: yup.string().required("email not empty").email("invalid format"),
+  password: yup
+    .string()
+    .required("password not empty"),
 });
 const RegisterPage = () => {
   const history = useHistory();
@@ -20,7 +21,17 @@ const RegisterPage = () => {
     resolver: yupResolver(schema),
   });
   const onSubmit = async (data) => {
-    console.log(data);
+    try {
+      const pathURL = `https://center-coreapi.herokuapp.com/users/register`;
+      const resp = await axios.post(pathURL, {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      });
+      alert(resp.data.message);
+    } catch (error) {
+      console.log(error.message);
+    }
     history.replace("/login");
   };
   return (
@@ -33,6 +44,26 @@ const RegisterPage = () => {
           </p>
 
           <Form className="mt-2" onSubmit={handleSubmit(onSubmit)}>
+            <label htmlFor="name" className="form-label">
+              Name
+            </label>
+            <input
+              name="name"
+              type="text"
+              id="name"
+              aria-describedby="nameFeedback"
+              className={`form-control mb-1 ${errors.name ? "is-invalid" : ""}`}
+              placeholder="name"
+              {...register("name")}
+            />
+            {errors.name && (
+              <>
+                <div id="nameFeedback" className="invalid-feedback">
+                  {errors.name.message}
+                </div>
+              </>
+            )}
+
             <label htmlFor="email" className="form-label">
               Email address
             </label>
@@ -41,7 +72,7 @@ const RegisterPage = () => {
               type="email"
               id="email"
               aria-describedby="validationServerUsernameFeedback"
-              className={`form-control mb-3 ${
+              className={`form-control mb-1 ${
                 errors.email ? "is-invalid" : ""
               }`}
               placeholder="name@example.com"
@@ -57,41 +88,41 @@ const RegisterPage = () => {
                 </div>
               </>
             )}
-
-            <label htmlFor="name" className="form-label">
-              Name
+            <label htmlFor="password" className="form-label">
+              Password
             </label>
             <input
-              name="name"
-              type="text"
-              id="name"
-              aria-describedby="nameFeedback"
-              className={`form-control mb-3 ${errors.name ? "is-invalid" : ""}`}
-              placeholder="name"
-              {...register("name")}
+              name="password"
+              type="password"
+              id="password"
+              aria-describedby="passwordFeedback"
+              className={`form-control mb-1 ${
+                errors.password ? "is-invalid" : ""
+              }`}
+              placeholder="password"
+              {...register("password")}
             />
-            {errors.email && (
+            {errors.password && (
               <>
-                <div id="nameFeedback" className="invalid-feedback">
-                  {errors.name.message}
+                <div id="passwordFeedback" className="invalid-feedback">
+                  {errors.password.message}
                 </div>
               </>
             )}
-            <p className="text-end">
-              {" "}
-              <div className="d-grid gap-2">
+            <div className="d-grid gap-2">
               <Button variant="primary" className="mt-2 col-auto" type="submit">
-                <BsPersonPlus className="mr-2" />
                 Register
               </Button>
-              </div>
-            </p>
+            </div>
           </Form>
           <hr />
           <div className="d-grid gap-2">
-            <button className="btn btn-primary" type="button">
+            <a
+              href="http://localhost:4000/auth/google"
+              className="btn btn-primary"
+            >
               Button
-            </button>
+            </a>
           </div>
         </Col>
       </Container>
