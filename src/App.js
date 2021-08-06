@@ -4,22 +4,31 @@ import NavBar from "./components/NavBar";
 import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
+// import PrivateRoute from "./guard/auth";
+import UserStoreProvider from "./context/UserContext";
+import { Provider } from "react-redux";
+import configureStore from "./redux/configureStore";
+const { store } = configureStore();
 function App() {
   return (
-    <Router>
-      <NavBar />
-      <Switch>
-        <Route exact path="/">
-          <HomePage />
-        </Route>
-        <Route exact path="/register">
-          <RegisterPage />
-        </Route>
-        <Route exact path="/login">
-          <LoginPage />
-        </Route>
-      </Switch>
-    </Router>
+    <Provider store={store}>
+      <UserStoreProvider>
+        <Router>
+          <NavBar />
+          <Switch>
+            <Route exact path="/">
+              <HomePage />
+            </Route>
+            <Route exact path="/register">
+              <RegisterPage />
+            </Route>
+            <Route exact path="/login">
+              <LoginPage />
+            </Route>
+          </Switch>
+        </Router>
+      </UserStoreProvider>
+    </Provider>
   );
 }
 

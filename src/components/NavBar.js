@@ -1,12 +1,37 @@
 import React from "react";
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
+//redux
+import { useSelector, useDispatch } from "react-redux";
+import { updateProfile } from "../redux/actions/authAction";
 const NavBar = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  //redux
+  const profileRedux = useSelector((state) => state.authReducer.profile);
+  // const totalRedux = useSelector((state) => state.cartReducer.total);
+  //redux below
+  const getProfile = () => {
+    const profileValue = JSON.parse(localStorage.getItem("profile"));
+    if (profileValue) {
+      dispatch(updateProfile(profileValue));
+    }
+  };
+  React.useEffect(() => {
+    getProfile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("profile");
+    history.replace("/");
+    dispatch(updateProfile(null));
+  };
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="mb-4">
         <Container>
-          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+          <Navbar.Brand href="/">React-Bootstrap</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
@@ -27,20 +52,31 @@ const NavBar = () => {
               </NavDropdown>
             </Nav>
             <Nav>
-              <NavLink
-                to="/login"
-                className="nav-link"
-                activeClassName="active"
-              >
-                Login
-              </NavLink>
-              <NavLink
-                to="/register"
-                className="nav-link"
-                activeClassName="active"
-              >
-                Register
-              </NavLink>
+              {profileRedux ? (
+                <span className="navbar-text text-white">
+                  Welcome {profileRedux.name} {' '}
+                  <button className="btn btn-danger ml-2" onClick={logout}>
+                    Log out
+                  </button>
+                </span>
+              ) : (
+                <>
+                  <NavLink
+                    to="/login"
+                    className="nav-link"
+                    activeClassName="active"
+                  >
+                    Login
+                  </NavLink>
+                  <NavLink
+                    to="/register"
+                    className="nav-link"
+                    activeClassName="active"
+                  >
+                    Register
+                  </NavLink>
+                </>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>

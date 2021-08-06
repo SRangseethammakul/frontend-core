@@ -116,6 +116,15 @@ const RegisterPage = () => {
             </div>
           </Form>
           <hr />
+          <div className="text-center">
+            <a href="https://center-coreapi.herokuapp.com/auth/google">
+              <img
+                src="./images/google_sign.png"
+                className="img-fluid"
+                alt="googlesignin"
+              />
+            </a>
+          </div>
           <div className="d-grid gap-2">
             <a
               href="http://localhost:4000/auth/google"
