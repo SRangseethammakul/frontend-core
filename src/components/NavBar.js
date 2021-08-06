@@ -4,6 +4,7 @@ import { NavLink, useHistory } from "react-router-dom";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import { updateProfile } from "../redux/actions/authAction";
+import Cookies from "js-cookie";
 const NavBar = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -24,14 +25,23 @@ const NavBar = () => {
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("profile");
+    Cookies.set('access_token', null)
     history.replace("/");
     dispatch(updateProfile(null));
   };
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="mb-4">
+      <Navbar
+        collapseOnSelect
+        expand="lg"
+        bg="dark"
+        variant="dark"
+        className="mb-4"
+      >
         <Container>
-          <Navbar.Brand href="/">React-Bootstrap</Navbar.Brand>
+          <NavLink to="/">
+            <Navbar.Brand>React-Bootstrap</Navbar.Brand>
+          </NavLink>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
@@ -54,7 +64,7 @@ const NavBar = () => {
             <Nav>
               {profileRedux ? (
                 <span className="navbar-text text-white">
-                  Welcome {profileRedux.name} {' '}
+                  Welcome {profileRedux.name}{" "}
                   <button className="btn btn-danger ml-2" onClick={logout}>
                     Log out
                   </button>
