@@ -15,22 +15,29 @@ export const addToCart = (product = {}, cart = []) => {
     cart.push(product);
   }
   const total = cart.reduce((totalQTY, product) => totalQTY + product.qty, 0);
+  let sum = cart.map((item) => {
+    return item.price * item.qty;
+  });
+  sum = sum.reduce((a, b) => a + b, 0);
   return {
     type: ADD_TO_CART,
     payload: {
       cart: cart,
       total: total,
+      sum: sum
     },
   };
 };
 export const clearAllCart = () => {
   const cart = [];
   const total = 0;
+  const sum = 0;
   return {
     type: CLEAR_ALL_CART,
     payload: {
       cart: cart,
       total: total,
+      sum : sum
     },
   };
 };

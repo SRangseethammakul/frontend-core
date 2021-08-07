@@ -11,12 +11,14 @@ const cartReducer = (state = initState, action) => {
         ...state,
         cart: action.payload.cart,
         total: action.payload.total,
+        sum: action.payload.sum,
       };
     case CLEAR_ALL_CART:
       return {
         ...state,
         cart: action.payload.cart,
         total: action.payload.total,
+        sum: action.payload.sum,
       };
     default:
       return state;
