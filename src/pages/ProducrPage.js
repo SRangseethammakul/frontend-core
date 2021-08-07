@@ -16,7 +16,7 @@ const ProducrPage = () => {
   const getData = async () => {
     try {
       setLoading(true);
-      const urlPath = "http://localhost:4000/product";
+      const urlPath = "https://center-coreapi.herokuapp.com/product";
       const resp = await axios.get(urlPath, {
         cancelToken: cancelToken.current.token,
       });
