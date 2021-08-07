@@ -9,7 +9,8 @@ const schema = yup.object().shape({
   email: yup.string().required("email not empty").email("invalid format"),
   password: yup
     .string()
-    .required("password not empty"),
+    .required("password not empty")
+    .min(8, "password more 8 char"),
 });
 const RegisterPage = () => {
   const history = useHistory();

@@ -83,7 +83,6 @@ const ProducrPage = () => {
               </Col>
             );
           })}
-          ;
         </Row>
       </Container>
     </>
