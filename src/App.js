@@ -8,6 +8,8 @@ import LoginPage from "./pages/LoginPage";
 import UserStoreProvider from "./context/UserContext";
 import { Provider } from "react-redux";
 import configureStore from "./redux/configureStore";
+import ProducrPage from "./pages/ProducrPage";
+import CartPage from "./pages/CartPage";
 const { store } = configureStore();
 function App() {
   return (
@@ -24,6 +26,12 @@ function App() {
             </Route>
             <Route exact path="/login">
               <LoginPage />
+            </Route>
+            <Route exact path="/product">
+              <ProducrPage />
+            </Route>
+            <Route exact path="/cart">
+              <CartPage />
             </Route>
           </Switch>
         </Router>

@@ -25,7 +25,7 @@ const NavBar = () => {
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("profile");
-    Cookies.set('access_token', null)
+    Cookies.set("access_token", null);
     history.replace("/");
     dispatch(updateProfile(null));
   };
@@ -39,14 +39,26 @@ const NavBar = () => {
         className="mb-4"
       >
         <Container>
-          <NavLink to="/">
+          <NavLink className="nav-link" activeClassName="active" to="/">
             <Navbar.Brand>React-Bootstrap</Navbar.Brand>
           </NavLink>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#features">Features</Nav.Link>
-              <Nav.Link href="#pricing">Pricing</Nav.Link>
+              <NavLink
+                className="nav-link"
+                activeClassName="active"
+                to="/product"
+              >
+                Product
+              </NavLink>
+              <NavLink
+                className="nav-link"
+                activeClassName="active"
+                to="/cart"
+              >
+                cart
+              </NavLink>
               <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">
