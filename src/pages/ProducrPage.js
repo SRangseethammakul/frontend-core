@@ -21,8 +21,8 @@ const ProducrPage = () => {
         cancelToken: cancelToken.current.token,
       });
       setProduct(resp.data.data);
-    } catch (error) {
-      setError(error);
+    } catch (err) {
+      setError(err);
     } finally {
       setLoading(false);
     }
@@ -50,14 +50,12 @@ const ProducrPage = () => {
     );
   }
   const addCart = (item) => {
-    // console.log(item);
     const product = {
       id: item.id,
       name: item.name,
       price: item.price,
       qty: 1,
     };
-    //call action
     dispatch(addToCart(product, cart));
   };
   return (
@@ -68,7 +66,7 @@ const ProducrPage = () => {
         <Row>
           {products.map((product, index) => {
             return (
-              <Col md={4} key={product.id}>
+              <Col md={3} key={product.id}>
                 <Card className="h-100">
                   <Card.Img variant="top" src={product.imageURL} />
                   <Card.Body>
