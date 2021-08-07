@@ -4,7 +4,7 @@ const HomePage = () => {
   return (
     <div>
       <div className="text-center">
-        <h1 class="display-4">
+        <h1 className="display-4">
           {" "}
           <Typical
             steps={["Hello", 1000, "Hello world!", 500]}
