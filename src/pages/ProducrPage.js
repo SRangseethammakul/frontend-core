@@ -4,7 +4,9 @@ import axios from "axios";
 //redux
 import { addToCart } from "../redux/actions/cartAction";
 import { useSelector, useDispatch } from "react-redux";
+import { useToasts } from "react-toast-notifications";
 const ProducrPage = () => {
+  const { addToast } = useToasts();
   const [products, setProduct] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
@@ -57,6 +59,7 @@ const ProducrPage = () => {
       qty: 1,
     };
     dispatch(addToCart(product, cart));
+    addToast("เพิ่มสินค้าสำเร็จ", { appearance: "success" });
   };
   return (
     <>
@@ -75,10 +78,12 @@ const ProducrPage = () => {
                       Some quick example text to build on the card title and
                       make up the bulk of the card's content.
                     </Card.Text>
+                  </Card.Body>
+                  <Card.Footer>
                     <Button variant="primary" onClick={() => addCart(product)}>
                       {product.price}
                     </Button>
-                  </Card.Body>
+                  </Card.Footer>
                 </Card>
               </Col>
             );

@@ -5,6 +5,7 @@ import * as yup from "yup";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { Container, Col, Form, Button } from "react-bootstrap";
+import { useToasts } from "react-toast-notifications";
 const schema = yup.object().shape({
   email: yup.string().required("email not empty").email("invalid format"),
   password: yup
@@ -13,6 +14,7 @@ const schema = yup.object().shape({
     .min(8, "password more 8 char"),
 });
 const RegisterPage = () => {
+  const { addToast } = useToasts();
   const history = useHistory();
   const {
     register,
@@ -29,11 +31,11 @@ const RegisterPage = () => {
         email: data.email,
         password: data.password,
       });
-      alert(resp.data.message);
+      addToast(resp.data.message, { appearance: "success" });
+      history.replace("/login");
     } catch (error) {
-      console.log(error.message);
+      addToast(error.response.data.error.message, { appearance: "error" });
     }
-    history.replace("/login");
   };
   return (
     <>

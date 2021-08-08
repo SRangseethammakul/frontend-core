@@ -7,12 +7,14 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { updateProfile } from "../redux/actions/authAction";
+import { useToasts } from "react-toast-notifications";
 const schema = yup.object().shape({
   email: yup.string().required("email not empty").email("invalid format"),
   password: yup.string().required("password not empty"),
 });
 
 const LoginPage = () => {
+  const { addToast } = useToasts();
   const history = useHistory();
   //use redux
   const dispatch = useDispatch();
@@ -44,6 +46,7 @@ const LoginPage = () => {
       );
       const profileValue = JSON.parse(localStorage.getItem("profile"));
       //call action
+      addToast('login success', { appearance: "success" });
       dispatch(updateProfile(profileValue));
       history.replace("/");
     } catch (error) {

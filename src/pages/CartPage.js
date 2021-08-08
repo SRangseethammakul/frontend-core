@@ -6,8 +6,10 @@ import Script from "react-load-script";
 import { useSelector, useDispatch } from "react-redux";
 import { clearAllCart } from "../redux/actions/cartAction";
 import { PublicKey } from "../config/keys";
+import { useToasts } from "react-toast-notifications";
 let OmiseCard;
 const CartPage = () => {
+  const { addToast } = useToasts();
   const cart = useSelector((state) => state.cartReducer.cart);
   const total = useSelector((state) => state.cartReducer.total);
   const sum = useSelector((state) => state.cartReducer.sum);
@@ -30,6 +32,7 @@ const CartPage = () => {
       });
       if (resp.data.status) {
         dispatch(clearAllCart());
+        addToast('payment success', { appearance: "success" });
       }
     } catch (error) {
       console.log(error.message);
@@ -91,7 +94,6 @@ const CartPage = () => {
         );
       },
       onFormClosed: () => {
-        dispatch(clearAllCart());
         /* Handler on form closure. */
       },
     });
