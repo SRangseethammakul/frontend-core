@@ -36,7 +36,6 @@ const NavBar = () => {
         expand="lg"
         bg="dark"
         variant="dark"
-        className="mb-4"
       >
         <Container>
           <NavLink className="nav-link" activeClassName="active" to="/">

@@ -12,6 +12,7 @@ import configureStore from "./redux/configureStore";
 import ProducrPage from "./pages/ProducrPage";
 import CartPage from "./pages/CartPage";
 import ResumePage from "./pages/ResumePAge";
+import ProductDetail from "./pages/ProductDetail";
 const { store } = configureStore();
 function App() {
   return (
@@ -43,6 +44,9 @@ function App() {
               <PrivateRoute exact path="/cart">
                 <CartPage />
               </PrivateRoute>
+              <Route exact path="/detail/:name">
+                <ProductDetail />
+              </Route>
             </Switch>
           </Router>
         </ToastProvider>
