@@ -53,7 +53,7 @@ const ProductDetail = () => {
   return (
     <>
       <Image
-        src="https://static.wixstatic.com/media/c7baa0_91ecc706c0c74d2898ba15ad218a0a51~mv2.jpg/v1/fill/w_1000,h_667,al_c,q_90,usm_0.66_1.00_0.01/c7baa0_91ecc706c0c74d2898ba15ad218a0a51~mv2.jpg"
+        src="https://scontent.fbkk2-7.fna.fbcdn.net/v/t31.18172-8/18278454_1463618233701518_1791232337601347255_o.jpg?_nc_cat=108&ccb=1-4&_nc_sid=84a396&_nc_eui2=AeFt03fWNqdBpjd0RVhsEwaNa0z8GDlShsprTPwYOVKGyo8JQ9xULoGDxHE0U77pQSe-CHudnRrW8Ckxzd-Sw4Sy&_nc_ohc=5aB2wICvIUUAX8TzrkF&_nc_ht=scontent.fbkk2-7.fna&oh=1820049f3d03eed9bdfde08bf6c408f7&oe=613C65E5"
         style={{ width: "100%", height: "50vh" }}
       />
       <Container>
