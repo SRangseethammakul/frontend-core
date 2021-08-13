@@ -246,7 +246,7 @@ const HomePage = () => {
               Imagine some exciting prose here.
             </p>
             <NavLink
-              to="/detail/green-curry"
+              to="/detail/61162cd61a3b1419f0ba618d"
               className="btn btn-outline-info mt-2"
               activeClassName="active"
             >

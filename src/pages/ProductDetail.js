@@ -1,7 +1,9 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import Typical from "react-typical";
-import { Container, Image, Table, Button } from "react-bootstrap";
+import axios from "axios";
+import { addToCart } from "../redux/actions/cartAction";
+import { useSelector, useDispatch } from "react-redux";
+import { Container, Image, Table, Button, Spinner } from "react-bootstrap";
 import {
   FaChevronUp,
   FaChevronDown,
@@ -12,28 +14,44 @@ import {
 import { useToasts } from "react-toast-notifications";
 const ProductDetail = () => {
   const { addToast } = useToasts();
-  var ssss = [
-    { id: 1, productName: "เนื้อไก่", volume: 300, unit: "กรัม" },
-    { id: 2, productName: "พริกแกงเขียวหวาน", volume: 70, unit: "กรัม" },
-    { id: 3, productName: "ใบมะกรูด", volume: 3, unit: "ใบ" },
-    { id: 4, productName: "น้ำปลา", volume: 1, unit: "ช้อนโต๊ะ" },
-  ];
-  const { name } = useParams();
-  const [products, setProduct] = React.useState(ssss);
+  //redux
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cartReducer.cart);
+  const cancelToken = React.useRef(null);
+  const [products, setProduct] = React.useState({});
+  const [items, setItem] = React.useState([]);
+  const [error, setError] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
   let [person, setPerson] = React.useState(1);
-
+  const { name } = useParams();
+  const getData = async () => {
+    try {
+      setLoading(true);
+      const urlPath =
+        `https://center-coreapi.herokuapp.com/product/product/${name}`;
+      const resp = await axios.get(urlPath, {
+        cancelToken: cancelToken.current.token,
+      });
+      setProduct(resp.data.data);
+      setItem(resp.data.data.items);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
   const removeItem = (product) => {
-    const newProducts = [...products];
-    let objIndex = newProducts.findIndex((obj) => obj.id === product.id);
+    const newProducts = [...items];
+    let objIndex = newProducts.findIndex((obj) => obj._id === product._id);
     newProducts.splice(objIndex, 1);
-    setProduct(newProducts);
+    setItem(newProducts);
     addToast("ลบสินค้าสำเร็จ", { appearance: "error" });
   };
   const updateInput = (e, product) => {
-    const newProducts = [...products];
-    let objIndex = newProducts.findIndex((obj) => obj.id === product.id);
+    const newProducts = [...items];
+    let objIndex = newProducts.findIndex((obj) => obj._id === product._id);
     newProducts[objIndex].volume = e.target.value;
-    setProduct(newProducts);
+    setItem(newProducts);
   };
   const addPerson = (p) => {
     person = p + 1;
@@ -50,20 +68,47 @@ const ProductDetail = () => {
       addToast("ลดจำนวนได้", { appearance: "error" });
     }
   };
+  const addCart = () => {
+    const product = {
+      id: products.id,
+      name: products.productName,
+      price: products.price * person,
+      qty: person,
+      item: items,
+    };
+    dispatch(addToCart(product, cart));
+    addToast("เพิ่มสินค้าสำเร็จ", { appearance: "success" });
+  };
+  React.useEffect(() => {
+    cancelToken.current = axios.CancelToken.source();
+    getData();
+    return () => {
+      cancelToken.current.cancel();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  if (loading === true) {
+    return (
+      <div className="text-center mt-5">
+        <Spinner animation="grow" variant="info" />
+      </div>
+    );
+  }
+  if (error) {
+    return (
+      <div className="text-center mt-5">
+        <p>Try Again</p>
+        <p>{error.response.data.message}</p>
+      </div>
+    );
+  }
   return (
     <>
-      <Image
-        src="https://scontent.fbkk2-7.fna.fbcdn.net/v/t31.18172-8/18278454_1463618233701518_1791232337601347255_o.jpg?_nc_cat=108&ccb=1-4&_nc_sid=84a396&_nc_eui2=AeFt03fWNqdBpjd0RVhsEwaNa0z8GDlShsprTPwYOVKGyo8JQ9xULoGDxHE0U77pQSe-CHudnRrW8Ckxzd-Sw4Sy&_nc_ohc=5aB2wICvIUUAX8TzrkF&_nc_ht=scontent.fbkk2-7.fna&oh=1820049f3d03eed9bdfde08bf6c408f7&oe=613C65E5"
-        style={{ width: "100%", height: "50vh" }}
-      />
+      <Image src={products.photo} style={{ width: "100%", height: "50vh" }} />
       <Container>
         <div className="text-center">
           <h2 className="fs-1">
-            <Typical
-              steps={["แกงเขียวหวานไก่", 2000, `${name}`, 1000]}
-              loop={Infinity}
-              wrapper="p"
-            />
+            {products.productName}
           </h2>
           <p>
             เมนูแกงยอดฮิตประจำชาติไทยอย่าง “แกงเขียวหวานไก่”
@@ -81,7 +126,7 @@ const ProductDetail = () => {
         <div className="d-flex flex-row bd-highlight mb-3">
           <div className="p-2 bd-highlight">
             {[...Array(person)].map((x, i) => (
-              <FaChild size={40} />
+              <FaChild size={40} key={i} />
             ))}
           </div>
           <div className="p-2 bd-highlight">
@@ -115,11 +160,11 @@ const ProductDetail = () => {
               </tr>
             </thead>
             <tbody>
-              {products.map((product, index) => {
+              {items.map((product, index) => {
                 return (
                   <tr key={index}>
-                    <td>{product.id}</td>
-                    <td>{product.productName}</td>
+                    <td>{product._id}</td>
+                    <td>{product.name}</td>
                     <td>
                       <input
                         type="number"
@@ -128,7 +173,7 @@ const ProductDetail = () => {
                         className="form-control"
                         onChange={(e) => updateInput(e, product)}
                       />{" "}
-                      / คน
+                      / {person} คน
                     </td>
                     <td>{product.unit}</td>
                     <td>
@@ -147,7 +192,7 @@ const ProductDetail = () => {
           </Table>
         </div>
         <div className="text-end mb-2">
-          <Button variant="primary" size="lg">
+          <Button variant="primary" size="lg" onClick={() => addCart()}>
             <FaCartPlus className="mr-5" />
             สั่งสินค้า
           </Button>{" "}
