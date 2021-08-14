@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import PrivateRoute from "./guard/auth";
+import AdminRoute from "./guard/admin";
 import UserStoreProvider from "./context/UserContext";
 import { Provider } from "react-redux";
 import configureStore from "./redux/configureStore";
@@ -13,6 +14,10 @@ import ProducrPage from "./pages/ProducrPage";
 import CartPage from "./pages/CartPage";
 import ResumePage from "./pages/ResumePAge";
 import ProductDetail from "./pages/ProductDetail";
+import IndexPage from "./pages/category/IndexPage";
+import CreatePage from "./pages/category/CreatePage";
+import ProductIndex from "./pages/product/ProductIndex";
+import ProductCreate from "./pages/product/ProductCreate";
 const { store } = configureStore();
 function App() {
   return (
@@ -47,6 +52,38 @@ function App() {
               <Route exact path="/detail/:name">
                 <ProductDetail />
               </Route>
+              <Route
+                path="/cms/category"
+                render={({ match: { url } }) => (
+                  <>
+                    <AdminRoute path={`${url}/`} exact>
+                      <IndexPage />
+                    </AdminRoute>
+                    <Route path={`${url}/create`} exact>
+                      <CreatePage />
+                    </Route>
+                    <Route path={`${url}/edit/:id`} exact>
+                      <IndexPage />
+                    </Route>
+                  </>
+                )}
+              ></Route>
+              <Route
+                path="/cms/product"
+                render={({ match: { url } }) => (
+                  <>
+                    <AdminRoute path={`${url}/`} exact>
+                      <ProductIndex />
+                    </AdminRoute>
+                    <AdminRoute path={`${url}/create`} exact>
+                      <ProductCreate />
+                    </AdminRoute>
+                    <Route path={`${url}/edit/:id`} exact>
+                      <IndexPage />
+                    </Route>
+                  </>
+                )}
+              ></Route>
             </Switch>
           </Router>
         </ToastProvider>
