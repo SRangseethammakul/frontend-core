@@ -95,7 +95,7 @@ const HomePage = () => {
                   className="bd-placeholder-img rounded-circle"
                   width={140}
                   height={140}
-                  src="https://scontent.fbkk2-4.fna.fbcdn.net/v/t1.18169-9/21370921_1589405647789442_4629004823198956328_n.jpg?_nc_cat=105&ccb=1-4&_nc_sid=8bfeb9&_nc_eui2=AeGZJN-Y6xeSiOUY0hypDDLbSCH2_fPCObBIIfb988I5sJLpOW79n8MY1tMp2zNhRuV-yVpqQ2HrwvYaQ3W9dbxM&_nc_ohc=6m_79730C9sAX8SV9fG&_nc_ht=scontent.fbkk2-4.fna&oh=75f911902c14e6ce4b34d5a9ea88ad4a&oe=6139D168"
+                  src="https://res.cloudinary.com/coreapi/image/upload/v1647451397/Food/IMG_5146_odo4vk.jpg"
                   aria-label="Placeholder: 140x140"
                   preserveAspectRatio="xMidYMid slice"
                   focusable="false"
@@ -117,7 +117,7 @@ const HomePage = () => {
                   className="bd-placeholder-img rounded-circle"
                   width={140}
                   height={140}
-                  src="https://get.pxhere.com/photo/dish-food-cuisine-salad-ingredient-caesar-salad-lettuce-produce-garden-salad-spinach-salad-vegetable-leaf-vegetable-meat-romaine-lettuce-vegetarian-food-recipe-Iceburg-lettuce-greek-food-1529253.jpg"
+                  src="https://res.cloudinary.com/coreapi/image/upload/v1647451397/Food/IMG_5291_weomys.jpg"
                   aria-label="Placeholder: 140x140"
                   preserveAspectRatio="xMidYMid slice"
                   focusable="false"
@@ -134,12 +134,12 @@ const HomePage = () => {
               </p>
             </div>
             <div className="col-lg-4">
-              <NavLink to="/product?type=japanese">
+              <NavLink to="/product?type=inter">
                 <img
                   className="bd-placeholder-img rounded-circle"
                   width={140}
                   height={140}
-                  src="https://scontent.fbkk2-3.fna.fbcdn.net/v/t1.6435-9/36436381_1893542290709108_519883637739487232_n.jpg?_nc_cat=111&ccb=1-4&_nc_sid=8bfeb9&_nc_eui2=AeEAmY7_K3A6xZ2SRy5mCSU0yIbVxeDLdbjIhtXF4Mt1uIeLPneqSHL28v_3_8tTWIp8ivEwK-Thy8oxai38sPeN&_nc_ohc=kxiw-kUZDqsAX83Lmwt&_nc_oc=AQmrToXA_ZD7yCYV220CX9mf-sWwEmKOIuQfHw1xzrY4qnecU4oezRIVr8ZhGG5cy3E&tn=nVFCu04bkmDgdUJd&_nc_ht=scontent.fbkk2-3.fna&oh=fbc2db3d03fe05f02a6b3f9349d08f34&oe=613CC1B3"
+                  src="https://res.cloudinary.com/coreapi/image/upload/v1647451396/Food/IMG_5295_p5y58l.jpg"
                   aria-label="Placeholder: 140x140"
                   preserveAspectRatio="xMidYMid slice"
                   focusable="false"
@@ -147,11 +147,11 @@ const HomePage = () => {
               </NavLink>
               <p>
                 <NavLink
-                  to="/product?type=japanese"
+                  to="/product?type=inter"
                   className="btn btn-outline-info mt-2"
                   activeClassName="active"
                 >
-                  Learn more
+                  อาหารต่างชาติ
                 </NavLink>
               </p>
             </div>
@@ -258,7 +258,7 @@ const HomePage = () => {
               className="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
               height={500}
               width={500}
-              src="https://scontent.fbkk2-7.fna.fbcdn.net/v/t31.18172-8/18278454_1463618233701518_1791232337601347255_o.jpg?_nc_cat=108&ccb=1-4&_nc_sid=84a396&_nc_eui2=AeFt03fWNqdBpjd0RVhsEwaNa0z8GDlShsprTPwYOVKGyo8JQ9xULoGDxHE0U77pQSe-CHudnRrW8Ckxzd-Sw4Sy&_nc_ohc=5aB2wICvIUUAX8TzrkF&_nc_ht=scontent.fbkk2-7.fna&oh=1820049f3d03eed9bdfde08bf6c408f7&oe=613C65E5"
+              src="https://res.cloudinary.com/coreapi/image/upload/v1647451782/Food/IMG_5142_h05gme.jpg"
               alt="green curry"
               focusable="false"
             />

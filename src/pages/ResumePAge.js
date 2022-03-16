@@ -1,6 +1,6 @@
 import React from "react";
 import Typical from "react-typical";
-import { Button } from "react-bootstrap";
+import { Button, Container, Col, Row } from "react-bootstrap";
 import {
   Animator,
   ScrollContainer,
@@ -15,12 +15,12 @@ import {
   StickyIn,
   ZoomIn,
 } from "react-scroll-motion";
+
 const ResumePage = () => {
   const ZoomInScrollOut = batch(StickyIn(), FadeIn(), ZoomIn());
   const FadeUp = batch(Fade(), Move(), Sticky());
   const FadeOut = batch(Fade(), MoveOut(), Sticky());
   const FadeInCss = batch(Fade(), MoveIn(), Sticky());
-
   return (
     <>
       <ScrollContainer>
@@ -118,8 +118,36 @@ const ResumePage = () => {
           </div>
         </ScrollPage>
         <ScrollPage page={10}>
+          <Animator animation={FadeInCss}>
+            <span style={{ fontSize: "4em" }}>Line Message API</span>
+          </Animator>
+        </ScrollPage>
+        <ScrollPage page={11}>
           <Animator animation={batch(Fade(), Sticky(), MoveOut(0, -200))}>
-            <Button variant="outline-info">Info</Button>
+            <Container>
+              <Row>
+                <Col>
+                  {" "}
+                  <img
+                    className="d-block w-100"
+                    src="https://res.cloudinary.com/coreapi/image/upload/v1647452367/Food/073anjgo_dowp0n.png"
+                    alt="line message api"
+                  />
+                </Col>
+              </Row>
+            </Container>
+          </Animator>
+        </ScrollPage>
+        <ScrollPage page={12}>
+          <Animator animation={batch(Fade(), Sticky(), MoveOut(0, -200))}>
+            <a
+              href="https://suttipongact.info/files/Suttipong_Rangseethammakul.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              download
+            >
+              <Button variant="outline-info">Download Now</Button>
+            </a>
           </Animator>
         </ScrollPage>
       </ScrollContainer>
